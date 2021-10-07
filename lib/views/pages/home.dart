@@ -6,10 +6,17 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // TODO: Style the title
-      appBar: AppBar(title: const Text('Fooderlich')),
-      // TODO: Style the body text
-      body: const Center(child: Text('Let\'s get cooking 👩‍🍳')),
+      appBar: AppBar(
+          title: Text(
+        'Fooderlich',
+        style: Theme.of(context).textTheme.headline6,
+      )),
+      body: Center(
+        child: Text(
+          'Let\'s get cooking 👩‍🍳',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+      ),
     );
   }
 }
