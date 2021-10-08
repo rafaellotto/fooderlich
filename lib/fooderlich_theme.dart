@@ -60,7 +60,6 @@ class FooderlichTheme {
 
   static ThemeData light() {
     return ThemeData(
-      primarySwatch: Colors.green,
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith((states) {
@@ -74,6 +73,9 @@ class FooderlichTheme {
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         foregroundColor: Colors.white,
         backgroundColor: Colors.black,
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        selectedItemColor: Colors.green,
       ),
       textTheme: lightTextTheme,
     );

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fooderlich/components/card1.dart';
-import 'package:fooderlich/components/card2.dart';
-import 'package:fooderlich/components/card3.dart';
 
-import 'package:fooderlich/models/explore_recipe.dart';
+import '../components/components.dart';
+import '../models/models.dart';
 
 class TodayRecipeListView extends StatelessWidget {
   final List<ExploreRecipe> recipes;
@@ -25,7 +23,7 @@ class TodayRecipeListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Recipes of the day',
+            'Recipes of the Day 🍳',
             style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(height: 16),
@@ -50,15 +48,14 @@ class TodayRecipeListView extends StatelessWidget {
   }
 
   Widget buildCard(ExploreRecipe recipe) {
-    switch (recipe.cardType) {
-      case RecipeCardType.card1:
-        return Card1(recipe: recipe);
-      case RecipeCardType.card2:
-        return Card2(recipe: recipe);
-      case RecipeCardType.card3:
-        return Card3(recipe: recipe);
-      default:
-        throw Exception("This card doesn't exist yet");
+    if (recipe.cardType == RecipeCardType.card1) {
+      return Card1(recipe: recipe);
+    } else if (recipe.cardType == RecipeCardType.card2) {
+      return Card2(recipe: recipe);
+    } else if (recipe.cardType == RecipeCardType.card3) {
+      return Card3(recipe: recipe);
+    } else {
+      throw Exception("This card doesn't exist yet");
     }
   }
 }

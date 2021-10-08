@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fooderlich/components/components.dart';
 
-import 'package:fooderlich/models/models.dart';
+import '../components/components.dart';
+import '../models/models.dart';
 
 class FriendPostListView extends StatelessWidget {
   final List<Post> friendPosts;
@@ -23,25 +23,23 @@ class FriendPostListView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Social Chefs',
+            'Social Chefs 👩‍🍳',
             style: Theme.of(context).textTheme.headline1,
           ),
           const SizedBox(height: 16),
           ListView.separated(
-            primary: false,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            itemCount: friendPosts.length,
-            separatorBuilder: (context, index) {
-              return const SizedBox(height: 16);
-            },
-            itemBuilder: (context, index) {
-              final post = friendPosts[index];
-
-              return FriendPostTile(post: post);
-            },
-          ),
+              primary: false,
+              physics: const NeverScrollableScrollPhysics(),
+              shrinkWrap: true,
+              scrollDirection: Axis.vertical,
+              itemCount: friendPosts.length,
+              itemBuilder: (context, index) {
+                final post = friendPosts[index];
+                return FriendPostTile(post: post);
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 16);
+              }),
           const SizedBox(height: 16),
         ],
       ),
