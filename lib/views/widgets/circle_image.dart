@@ -4,13 +4,13 @@ class CircleImage extends StatelessWidget {
   // 1
   const CircleImage({
     Key? key,
-    this.imageProvider,
+    required this.imageProvider,
     this.imageRadius = 20,
   }) : super(key: key);
 
   // 2
   final double imageRadius;
-  final ImageProvider? imageProvider;
+  final ImageProvider imageProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,12 @@ class CircleImage extends StatelessWidget {
       // 4
       child: CircleAvatar(
         radius: imageRadius - 5,
-        backgroundImage: imageProvider,
+        backgroundImage: ResizeImage(
+          imageProvider,
+          width: 46,
+          height: 46,
+          allowUpscaling: true,
+        ),
       ),
     );
   }

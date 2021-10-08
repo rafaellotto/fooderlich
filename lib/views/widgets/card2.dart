@@ -16,12 +16,15 @@ class Card2 extends StatelessWidget {
         ),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/mag5.png'),
+            image: ResizeImage(
+              AssetImage('assets/mag5.png'),
+              width: 350,
+              height: 450,
+              allowUpscaling: true,
+            ),
             fit: BoxFit.cover,
           ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(10.0)),
         ),
         // 2
         child: Column(
