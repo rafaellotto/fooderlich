@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fooderlich/api/mock_fooderlich_service.dart';
+import 'package:fooderlich/components/components.dart';
 import 'package:fooderlich/components/today_recipe_list_view.dart';
 import 'package:fooderlich/models/models.dart';
 
@@ -19,10 +20,7 @@ class ExploreScreen extends StatelessWidget {
             children: [
               TodayRecipeListView(recipes: snapshot.data?.todayRecipes ?? []),
               const SizedBox(height: 16),
-              Container(
-                height: 400,
-                color: Colors.green,
-              ),
+              FriendPostListView(friendPosts: snapshot.data?.friendPosts ?? []),
             ],
           );
         } else {
