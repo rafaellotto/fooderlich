@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:fooderlich/components/grocery_title.dart';
 
 import 'package:fooderlich/models/grocery_item.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,7 +98,22 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             const SizedBox(height: 16),
             buildQuantityField(),
             const SizedBox(height: 16),
-            // TODO: 19: Add Grocery Tile
+            GroceryTile(
+              item: GroceryItem(
+                id: 'previewMode',
+                name: _name,
+                importance: _importance,
+                color: _currentColor,
+                quantity: _currentSliderValue,
+                date: DateTime(
+                  _dueDate.year,
+                  _dueDate.month,
+                  _dueDate.day,
+                  _timeOfDay.hour,
+                  _timeOfDay.minute,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -113,7 +129,6 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
           style: GoogleFonts.lato(fontSize: 28),
         ),
         TextField(
-          autofocus: true,
           controller: _nameController,
           cursorColor: _currentColor,
           decoration: InputDecoration(
@@ -145,7 +160,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
           spacing: 10,
           children: [
             ChoiceChip(
-              selectedColor: Colors.black,
+              selectedColor: _currentColor,
               selected: _importance == Importance.low,
               onSelected: (selected) {
                 setState(() {
@@ -158,7 +173,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               ),
             ),
             ChoiceChip(
-              selectedColor: Colors.black,
+              selectedColor: _currentColor,
               selected: _importance == Importance.medium,
               onSelected: (selected) {
                 setState(() {
@@ -171,7 +186,7 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               ),
             ),
             ChoiceChip(
-              selectedColor: Colors.black,
+              selectedColor: _currentColor,
               selected: _importance == Importance.high,
               onSelected: (selected) {
                 setState(() {
@@ -201,7 +216,10 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               style: GoogleFonts.lato(fontSize: 28),
             ),
             TextButton(
-              child: const Text('Select'),
+              child: Text(
+                'Select',
+                style: TextStyle(color: _currentColor),
+              ),
               onPressed: () async {
                 final currentDate = DateTime.now();
 
@@ -238,7 +256,10 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               style: GoogleFonts.lato(fontSize: 28),
             ),
             TextButton(
-              child: const Text('Select'),
+              child: Text(
+                'Select',
+                style: TextStyle(color: _currentColor),
+              ),
               onPressed: () async {
                 final timeOfDay = await showTimePicker(
                   initialTime: TimeOfDay.now(),
@@ -278,7 +299,10 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
           ],
         ),
         TextButton(
-          child: const Text('Select'),
+          child: Text(
+            'Select',
+            style: TextStyle(color: _currentColor),
+          ),
           onPressed: () {
             showDialog(
               context: context,
