@@ -110,6 +110,7 @@ class GroceryTile extends StatelessWidget {
 
   Widget buildCheckbox() {
     return Checkbox(
+      activeColor: item.color,
       value: item.isComplete,
       onChanged: onComplete,
     );
