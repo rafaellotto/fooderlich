@@ -87,17 +87,17 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
         child: ListView(
           children: [
             buildNameField(context),
-            const SizedBox(height: 16),
+            const Divider(),
             buildImportanceField(context),
-            const SizedBox(height: 16),
+            const Divider(),
             buildDateField(context),
-            const SizedBox(height: 16),
+            const Divider(),
             buildTimeField(context),
-            const SizedBox(height: 16),
+            const Divider(),
             buildColorPicker(context),
-            const SizedBox(height: 16),
+            const Divider(),
             buildQuantityField(),
-            const SizedBox(height: 16),
+            const Divider(),
             GroceryTile(
               item: GroceryItem(
                 id: 'previewMode',
@@ -211,9 +211,15 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Date',
-              style: GoogleFonts.lato(fontSize: 28),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Date',
+                  style: GoogleFonts.lato(fontSize: 28),
+                ),
+                Text(DateFormat('dd/MM/yyyy').format(_dueDate)),
+              ],
             ),
             TextButton(
               child: Text(
@@ -239,7 +245,6 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             ),
           ],
         ),
-        Text(DateFormat('dd/MM/yyyy').format(_dueDate)),
       ],
     );
   }
@@ -251,9 +256,15 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Time of Day',
-              style: GoogleFonts.lato(fontSize: 28),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Time of Day',
+                  style: GoogleFonts.lato(fontSize: 28),
+                ),
+                Text(_timeOfDay.format(context)),
+              ],
             ),
             TextButton(
               child: Text(
@@ -275,7 +286,6 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
             ),
           ],
         ),
-        Text(_timeOfDay.format(context)),
       ],
     );
   }
@@ -336,7 +346,8 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
           textBaseline: TextBaseline.alphabetic,
           children: [
             Text(
@@ -344,9 +355,12 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
               style: GoogleFonts.lato(fontSize: 28),
             ),
             const SizedBox(width: 16),
-            Text(
-              _currentSliderValue.toInt().toString(),
-              style: GoogleFonts.lato(fontSize: 18),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0),
+              child: Text(
+                _currentSliderValue.toInt().toString(),
+                style: GoogleFonts.lato(fontSize: 18),
+              ),
             ),
           ],
         ),
@@ -357,7 +371,6 @@ class _GroceryItemScreenState extends State<GroceryItemScreen> {
           min: 0.0,
           max: 100.0,
           divisions: 100,
-          label: _currentSliderValue.toInt().toString(),
           onChanged: (double value) {
             setState(
               () {
