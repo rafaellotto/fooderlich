@@ -18,7 +18,7 @@ class ProfileManager extends ChangeNotifier {
 
   var _didSelectUser = false;
   var _tapOnRaywenderlich = false;
-  var _darkMode = true;
+  var _darkMode = false;
 
   void set darkMode(bool darkMode) {
     _darkMode = darkMode;

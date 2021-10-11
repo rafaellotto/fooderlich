@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fooderlich/models/fooderlich_pages.dart';
-import 'package:fooderlich/models/models.dart';
 import 'package:provider/provider.dart';
 
+import '../models/models.dart';
 import 'explore_screen.dart';
 import 'grocery_screen.dart';
 import 'recipes_screen.dart';
@@ -12,7 +11,9 @@ class Home extends StatefulWidget {
     return MaterialPage(
       name: FooderlichPages.home,
       key: ValueKey(FooderlichPages.home),
-      child: Home(currentTab: currentTab),
+      child: Home(
+        currentTab: currentTab,
+      ),
     );
   }
 
@@ -37,7 +38,11 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Consumer<AppStateManager>(
-      builder: (context, appStateManager, child) {
+      builder: (
+        context,
+        appStateManager,
+        child,
+      ) {
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -48,7 +53,10 @@ class _HomeState extends State<Home> {
               profileButton(),
             ],
           ),
-          body: IndexedStack(index: widget.currentTab, children: pages),
+          body: IndexedStack(
+            index: widget.currentTab,
+            children: pages,
+          ),
           bottomNavigationBar: BottomNavigationBar(
             selectedItemColor:
                 Theme.of(context).textSelectionTheme.selectionColor,
@@ -57,16 +65,16 @@ class _HomeState extends State<Home> {
               Provider.of<AppStateManager>(context, listen: false)
                   .goToTab(index);
             },
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+            items: <BottomNavigationBarItem>[
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.explore),
                 label: 'Explore',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.book),
                 label: 'Recipes',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(Icons.list),
                 label: 'To Buy',
               ),
@@ -83,9 +91,7 @@ class _HomeState extends State<Home> {
       child: GestureDetector(
         child: const CircleAvatar(
           backgroundColor: Colors.transparent,
-          backgroundImage: AssetImage(
-            'assets/profile_pics/person_stef.jpeg',
-          ),
+          backgroundImage: AssetImage('assets/profile_pics/person_stef.jpeg'),
         ),
         onTap: () {
           Provider.of<ProfileManager>(context, listen: false)
