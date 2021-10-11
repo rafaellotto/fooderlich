@@ -18,7 +18,7 @@ class FriendPostTile extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         CircleImage(
-          imageProvider: AssetImage('${post.profileImageUrl}'),
+          imageProvider: AssetImage(post.profileImageUrl),
           imageRadius: 20,
         ),
         const SizedBox(width: 16),
