@@ -1,6 +1,6 @@
-# fooderlich
+# recipe_finder
 
-A new Flutter project.
+Starter Recipe Finder
 
 ## Getting Started
 
