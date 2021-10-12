@@ -1,8 +1,13 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:recipes/ui/colors.dart';
-import 'package:recipes/ui/widgets/custom_dropdown.dart';
+import 'package:flutter/services.dart';
+import 'package:recipes/network/recipe_model.dart';
+import 'package:recipes/ui/recipe_card.dart';
+import 'package:recipes/ui/recipes/recipe_details.dart';
+import '../colors.dart';
+import '../widgets/custom_dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RecipeList extends StatefulWidget {
@@ -25,6 +30,7 @@ class _RecipeListState extends State<RecipeList> {
   bool loading = false;
   bool inErrorState = false;
   List<String> previousSearches = <String>[];
+  APIRecipeQuery? _currentRecipes1 = null;
 
   @override
   void initState() {
@@ -52,6 +58,8 @@ class _RecipeListState extends State<RecipeList> {
           }
         }
       });
+
+    loadRecipes();
   }
 
   @override
@@ -92,6 +100,13 @@ class _RecipeListState extends State<RecipeList> {
 
         savePreviousSearches();
       }
+    });
+  }
+
+  Future loadRecipes() async {
+    final jsonString = await rootBundle.loadString('assets/recipes1.json');
+    setState(() {
+      _currentRecipes1 = APIRecipeQuery.fromJson(jsonDecode(jsonString));
     });
   }
 
@@ -190,12 +205,27 @@ class _RecipeListState extends State<RecipeList> {
   }
 
   Widget _buildRecipeLoader(BuildContext context) {
-    if (searchTextController.text.length < 3) {
+    if (_currentRecipes1 == null || _currentRecipes1?.hits == null) {
       return Container();
     }
-    // Show a loading indicator while waiting for the movies
-    return const Center(
-      child: CircularProgressIndicator(),
+
+    return Center(
+      child: _buildRecipeCard(context, _currentRecipes1!.hits, 0),
+    );
+  }
+
+  Widget _buildRecipeCard(
+      BuildContext topLevelContext, List<APIHits> hits, int index) {
+    final recipe = hits[index].recipe;
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(topLevelContext, MaterialPageRoute(
+          builder: (context) {
+            return const RecipeDetails();
+          },
+        ));
+      },
+      child: recipeStringCard(recipe.image, recipe.label),
     );
   }
 }
