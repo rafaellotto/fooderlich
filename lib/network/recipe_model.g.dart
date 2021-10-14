@@ -6,49 +6,70 @@ part of 'recipe_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-APIRecipeQuery _$APIRecipeQueryFromJson(Map<String, dynamic> json) =>
-    APIRecipeQuery(
-      query: json['q'] as String,
+RecipeSearch _$RecipeSearchFromJson(Map<String, dynamic> json) => RecipeSearch(
       from: json['from'] as int,
       to: json['to'] as int,
-      more: json['more'] as bool,
       count: json['count'] as int,
+      links: Links.fromJson(json['_links'] as Map<String, dynamic>),
       hits: (json['hits'] as List<dynamic>)
-          .map((e) => APIHits.fromJson(e as Map<String, dynamic>))
+          .map((e) => Hit.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$APIRecipeQueryToJson(APIRecipeQuery instance) =>
+Map<String, dynamic> _$RecipeSearchToJson(RecipeSearch instance) =>
     <String, dynamic>{
-      'q': instance.query,
       'from': instance.from,
       'to': instance.to,
-      'more': instance.more,
       'count': instance.count,
+      '_links': instance.links,
       'hits': instance.hits,
     };
 
-APIHits _$APIHitsFromJson(Map<String, dynamic> json) => APIHits(
-      recipe: APIRecipe.fromJson(json['recipe'] as Map<String, dynamic>),
+Links _$LinksFromJson(Map<String, dynamic> json) => Links(
+      next: json['next'] == null
+          ? null
+          : Link.fromJson(json['next'] as Map<String, dynamic>),
+      self: json['self'] == null
+          ? null
+          : Link.fromJson(json['self'] as Map<String, dynamic>),
     );
 
-Map<String, dynamic> _$APIHitsToJson(APIHits instance) => <String, dynamic>{
+Map<String, dynamic> _$LinksToJson(Links instance) => <String, dynamic>{
+      'self': instance.self,
+      'next': instance.next,
+    };
+
+Link _$LinkFromJson(Map<String, dynamic> json) => Link(
+      href: json['href'] as String?,
+      title: json['title'] as String?,
+    );
+
+Map<String, dynamic> _$LinkToJson(Link instance) => <String, dynamic>{
+      'href': instance.href,
+      'title': instance.title,
+    };
+
+Hit _$HitFromJson(Map<String, dynamic> json) => Hit(
+      recipe: Recipe.fromJson(json['recipe'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$HitToJson(Hit instance) => <String, dynamic>{
       'recipe': instance.recipe,
     };
 
-APIRecipe _$APIRecipeFromJson(Map<String, dynamic> json) => APIRecipe(
+Recipe _$RecipeFromJson(Map<String, dynamic> json) => Recipe(
       label: json['label'] as String,
       image: json['image'] as String,
       url: json['url'] as String,
       ingredients: (json['ingredients'] as List<dynamic>)
-          .map((e) => APIIngredients.fromJson(e as Map<String, dynamic>))
+          .map((e) => Ingredients.fromJson(e as Map<String, dynamic>))
           .toList(),
       calories: (json['calories'] as num).toDouble(),
       totalWeight: (json['totalWeight'] as num).toDouble(),
       totalTime: (json['totalTime'] as num).toDouble(),
     );
 
-Map<String, dynamic> _$APIRecipeToJson(APIRecipe instance) => <String, dynamic>{
+Map<String, dynamic> _$RecipeToJson(Recipe instance) => <String, dynamic>{
       'label': instance.label,
       'image': instance.image,
       'url': instance.url,
@@ -58,14 +79,25 @@ Map<String, dynamic> _$APIRecipeToJson(APIRecipe instance) => <String, dynamic>{
       'totalTime': instance.totalTime,
     };
 
-APIIngredients _$APIIngredientsFromJson(Map<String, dynamic> json) =>
-    APIIngredients(
-      name: json['text'] as String,
+Ingredients _$IngredientsFromJson(Map<String, dynamic> json) => Ingredients(
+      text: json['text'] as String?,
+      quantity: (json['quantity'] as num).toDouble(),
+      measure: json['measure'] as String?,
+      food: json['food'] as String?,
       weight: (json['weight'] as num).toDouble(),
+      foodCategory: json['foodCategory'] as String?,
+      foodId: json['foodId'] as String?,
+      image: json['image'] as String?,
     );
 
-Map<String, dynamic> _$APIIngredientsToJson(APIIngredients instance) =>
+Map<String, dynamic> _$IngredientsToJson(Ingredients instance) =>
     <String, dynamic>{
-      'text': instance.name,
+      'text': instance.text,
+      'quantity': instance.quantity,
+      'measure': instance.measure,
+      'food': instance.food,
       'weight': instance.weight,
+      'foodCategory': instance.foodCategory,
+      'foodId': instance.foodId,
+      'image': instance.image,
     };
